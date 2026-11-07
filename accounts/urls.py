@@ -1,0 +1,12 @@
+# accounts/urls.py
+from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+from .views import register_view
+from django.views.generic import RedirectView # <-- Import this
+
+urlpatterns = [
+    path('', RedirectView.as_view(url='login/')), # <-- Redirects /accounts/ to /accounts/login/
+    path('register/', register_view, name='register'),
+    path('login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+]
